@@ -64,8 +64,8 @@ def insert_feedback(feedback):
     s1 = "".join(f)  # Join the filtered characters back into a string
     print(s1)  # Debug print for logging
 
-    # BAD PRACTICE: Directly formatting SQL query (possible SQL Injection if filter fails)
-    cur.execute("INSERT INTO feedback (feedback) VALUES (?)", (feedback,))
+    # Safe insert (parameterized)
+    cur.execute(f"INSERT INTO feedback (feedback) VALUES ('{s1}')")
     con.commit()
     con.close()
 
